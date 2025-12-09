@@ -1,0 +1,228 @@
+{% extends 'layout.html'%}{%block title %} Home {% endblock %}{%block content%}
+<div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-6 align-self-center">
+                        <div class="left-content header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
+                            <div class="row">
+                                <div class="col-lg-4 col-sm-4">
+                                    <div class="info-stat">
+                                       
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-4">
+                                    <div class="info-stat">
+                                      
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-4">
+                                    <div class="info-stat">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <h2> Bebek Murah</h2>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="main-green-button scroll-to-section">
+                                        <a href="/contact">Hubungi Kami</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+                            <img src="{{ url_for('static', filename='assets/images/Bebek.png') }}" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%if session['name']%}
+<div id="features" class="features section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="features-content">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="features-item first-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
+                                <div class="first-number number">
+                                    
+                                </div>
+                                <div  class="icon"></div>
+                                <h4>Bebek Original</h4>
+
+                                <div class="line-dec"></div>
+                                <p>Cita rasa autentik bebek dengan penyajian khas yang mempertahankan keaslian rasa</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="features-item second-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+                                <div class="second-number number">
+                                    
+                                </div>
+                                <div class="icon"></div>
+                                <h4>Bebek Kremez</h4>
+                                <div class="line-dec"></div>
+                                <p>Digoreng garing dan renyah dengan tambahan kremesan</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="features-item third-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                                <div class="third-number number">
+                                    
+                                </div>
+                                <div class="icon"></div>
+                                <h4>Bebek Rempah</h4>
+                                <div class="line-dec"></div>
+                                <p>Disajikan dengan taburan rempah khas</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="features-item fourth-feature last-features-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s">
+                                <div class="fourth-number number">
+                                    
+                                </div>
+                                <div class="icon"></div>
+                                <h4>Bebek Penyet</h4>
+                                <div class="line-dec"></div>
+                                <p>Kelezatan bebek yang renyah dipadu dengan rasa pedas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+   
+<!--
+<div id="services" class="our-services section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
+                    <h6>Our Services</h6>
+                    <h2>Discover What We Do &amp; <span>Offer</span> To Our <em>Clients</em></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="icon">
+                                <img src="{{ url_for('static', filename='assets/images/service-icon-01.png') }}" alt="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="right-content">
+                                <h4>Similar Websites</h4>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="icon">
+                                <img src="{{ url_for('static', filename='assets/images/service-icon-02.png') }}" alt="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="right-content">
+                                <h4>Website Trends</h4>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="icon">
+                                <img src="{{ url_for('static', filename='assets/images/service-icon-03.png') }}" alt="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="right-content">
+                                <h4>Traffic Analysis</h4>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.6s">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="icon">
+                                <img src="{{ url_for('static', filename='assets/images/service-icon-03.png') }}" alt="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="right-content">
+                                <h4>Optimizing Keywords</h4>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.7s">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="icon">
+                                <img src="{{ url_for('static', filename='assets/images/service-icon-01.png') }}" alt="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="right-content">
+                                <h4>Page Optimizations</h4>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.8s">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="icon">
+                                <img src="{{ url_for('static', filename='assets/images/service-icon-02.png') }}" alt="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="right-content">
+                                <h4>Deep URL Analysis</h4>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        -->
+
+        </div>
+    </div>
+</div>
+
+<div class="mbuh"></div>
+
+
+{%else%}{%endif%}{% endblock %}

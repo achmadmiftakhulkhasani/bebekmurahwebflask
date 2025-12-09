@@ -1,0 +1,189 @@
+{% extends 'layout.html'%}
+{% block title %}  jurnal {% endblock %}
+{% block content %}
+<br><br><br><br>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">jurnal umum</h1>
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+    <div class="alert-message block-message error">
+      <a class="close" href="#">×</a>
+      <ul>
+        {%- for msg in errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{msg}}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor -%}
+      </ul>
+    </div>
+    {% endif %}
+    {% endwith %}
+  </div>
+  <br><br>
+  <div class="container">
+    <div class="modal fade" id="barangModal" tabindex="-1" aria-labelledby="barangModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="barangModalLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="contact" action="/jurnal" method="POST">
+              <div class="mb-3">
+                <label for="tanggal" class="col-form-label">Tanggal:</label>
+                <input type="text" name="tanggal" class="form-control" id="tanggal">
+              </div>
+              <div class="mb-3">
+                <label for="nama" class="form-label">Nama Akun:</label>
+                <select class="form-select" id="nama" name="nama" required>
+                  <option selected disabled value="">Pilih...</option>
+                  <option value="Kas">Kas</option>
+                  <option value="Modal">Modal</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="debit" class="col-form-label">Debit:</label>
+                <input type="number" class="form-control" name="debit" id="debit">
+              </div>
+              <div class="mb-3">
+                <label for="kredit" class="col-form-label">Kredit:</label>
+                <input type="number" class="form-control" name="kredit" id="kredit">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Input</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="pdfModalLabel">PDF Viewer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <object data="D:\neww\jusim-digabungkan.pdf" type="application/pdf" width="100%" height="600px">
+              <p>PDF could not be displayed. Please <a href="D:\neww\jusim-digabungkan.pdf">download the PDF</a> instead.</p>
+            </object>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#barangModal" data-bs-whatever="@mdo">+Tambah</button> &emsp;
+      <a href="{{ url_for('unduh_barang') }}" class="btn btn-success">Excel</a>
+      <a href="https://colab.research.google.com/drive/1UYO51aCczTmuk2-VKgqiDRsNKM9g7U4t#scrollTo=Om0o306gDPfL" class="btn btn-secondary">Display</a>
+      <button type="button" class="btn btn-primary" onclick="viewPDF()">Data</button>
+      <script>
+      function viewPDF() {
+        window.open("/viewpdf", "_blank");
+      }
+      </script>
+    </div>
+  </div>
+  <br><br>
+  <div class="card">
+    <div class="card-header">
+      jurnal umum
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead class="table table-warning">
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Tanggal</th>
+            <th scope="col">Nama Akun</th>
+            <th scope="col">Debit</th>
+            <th scope="col">Kredit</th>
+            <th scope="col">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dt in datao %}
+          <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ dt.tanggal }}</td>
+            <td>{{ dt.nama }}</td>
+            <td>{{ dt.debit }}</td>
+            <td>{{ dt.kredit }}</td>
+            <td>
+              <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ dt.id }}" data-bs-whatever="@mdo">Edit</button>
+              <div class="modal fade" id="editModal{{ dt.id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="editModalLabel">Edit</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="/editbarang/{{ dt.id }}" method="POST">
+                        <input type="hidden" name="id" value="{{ dt.id }}">
+                        <div class="mb-3">
+                          <label for="edit-tanggal-{{ dt.id }}" class="col-form-label">Tanggal:</label>
+                          <input type="text" name="tanggal" value="{{ dt.tanggal }}" class="form-control" id="edit-tanggal-{{ dt.id }}">
+                        </div>
+                        <div class="mb-3">
+                          <label for="edit-nama-{{ dt.id }}" class="form-label">Nama Akun:</label>
+                          <select class="form-select" id="edit-nama-{{ dt.id }}" name="nama" required>
+                            <option disabled>Pilih...</option>
+                            <option value="Kas" {% if dt.nama == "Kas" %} selected {% endif %}>Kas</option>
+                            <option value="Modal" {% if dt.nama == "Modal" %} selected {% endif %}>Modal</option>
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="edit-debit-{{ dt.id }}" class="col-form-label">Debit:</label>
+                          <input type="number" value="{{ dt.debit }}" class="form-control" name="debit" id="edit-debit-{{ dt.id }}">
+                        </div>
+                        <div class="mb-3">
+                          <label for="edit-kredit-{{ dt.id }}" class="col-form-label">Kredit:</label>
+                          <input type="number" value="{{ dt.kredit }}" class="form-control" name="kredit" id="edit-kredit-{{ dt.id }}">
+                        </div>                 
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal{{ dt.id }}">Hapus</button>
+              <div class="modal fade" id="hapusModal{{ dt.id }}" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Anda yakin ingin menghapus barang ini?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                      <a href="/hapusbarang/{{ dt.id }}" class="btn btn-danger">Ya, Hapus</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <th colspan="3" class="text-end">Total</th>
+            <th>{{ total_debit }}</th>
+            <th>{{ total_kredit }}</th>
+            <th></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
